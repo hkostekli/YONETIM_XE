@@ -219,7 +219,8 @@ begin
    mr := Login_Service.ShowModAl;
    HelpKeyword := Login_Service.CbSirket.Text;
    Login_Service.Destroy;
-   Scaled := True;
+   Scaled  := False;
+   Scaled  := True;
    if mr <> mrOk then Application.Terminate
    else
       begin
