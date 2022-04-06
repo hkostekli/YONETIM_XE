@@ -1,0 +1,675 @@
+object MagazaSecForm: TMagazaSecForm
+  Left = 321
+  Top = 102
+  BorderStyle = bsSingle
+  Caption = 'Ma'#287'aza Se'#231
+  ClientHeight = 501
+  ClientWidth = 762
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  PopupMenu = pMenu
+  Position = poDesktopCenter
+  WindowState = wsMaximized
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object cxGroupBox2: TcxGroupBox
+    Left = 0
+    Top = 471
+    Align = alBottom
+    Alignment = alRightCenter
+    Style.BorderStyle = ebsNone
+    TabOrder = 0
+    Height = 30
+    Width = 762
+    object btnOk: TcxButton
+      Left = 578
+      Top = 3
+      Width = 85
+      Height = 25
+      Action = actTamam
+      TabOrder = 0
+      LookAndFeel.Kind = lfOffice11
+    end
+    object btnCancel: TcxButton
+      Left = 665
+      Top = 3
+      Width = 84
+      Height = 25
+      Action = actVazgec
+      TabOrder = 1
+      LookAndFeel.Kind = lfOffice11
+    end
+    object cxLabel1: TcxLabel
+      Left = 6
+      Top = 6
+      AutoSize = False
+      Caption = 'Aranan'
+      ParentFont = False
+      Style.BorderStyle = ebsNone
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clWindowText
+      Style.Font.Height = -11
+      Style.Font.Name = 'MS Sans Serif'
+      Style.Font.Style = []
+      Style.Shadow = True
+      Style.IsFontAssigned = True
+      Properties.Alignment.Horz = taCenter
+      Height = 21
+      Width = 44
+      AnchorX = 28
+    end
+    object edAranan: TcxTextEdit
+      Left = 53
+      Top = 6
+      Properties.CharCase = ecUpperCase
+      Style.BorderStyle = ebsNone
+      Style.Shadow = True
+      TabOrder = 3
+      Width = 164
+    end
+    object cxBul: TcxButton
+      Left = 222
+      Top = 3
+      Width = 85
+      Height = 25
+      Action = actBul
+      TabOrder = 4
+      LookAndFeel.Kind = lfOffice11
+    end
+  end
+  object DataGrid: TcxTreeList
+    Left = 0
+    Top = 0
+    Width = 762
+    Height = 471
+    HelpContext = 175
+    Align = alClient
+    Bands = <
+      item
+        Caption.AlignHorz = taCenter
+        Caption.AlignVert = vaCenter
+        Caption.Text = 'B'#246'lge Da'#287#305'l'#305'm Plan'#305
+        FixedKind = tlbfLeft
+        Options.Customizing = False
+        Options.Moving = False
+        Width = 622
+      end>
+    BufferedPaint = False
+    Font.Charset = TURKISH_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    LookAndFeel.Kind = lfOffice11
+    LookAndFeel.NativeStyle = True
+    OptionsBehavior.AlwaysShowEditor = True
+    OptionsBehavior.CellHints = True
+    OptionsBehavior.GoToNextCellOnEnter = True
+    OptionsBehavior.GoToNextCellOnTab = True
+    OptionsBehavior.AutomateLeftMostIndent = False
+    OptionsBehavior.ConfirmDelete = False
+    OptionsBehavior.ExpandOnIncSearch = True
+    OptionsBehavior.FocusCellOnCycle = True
+    OptionsCustomizing.ColumnMoving = False
+    OptionsData.Deleting = False
+    OptionsSelection.HideFocusRect = False
+    OptionsSelection.InvertSelect = False
+    OptionsSelection.MultiSelect = True
+    OptionsView.ShowEditButtons = ecsbFocused
+    OptionsView.GridLines = tlglVert
+    OptionsView.HeaderSingleLine = True
+    OptionsView.TreeLineColor = clTeal
+    ParentFont = False
+    Styles.Content = cxStyle18
+    Styles.Selection = cxStyle13
+    Styles.OnGetContentStyle = DataGridStylesGetContentStyle
+    Styles.BandContent = cxStyle19
+    TabOrder = 1
+    OnEditing = DataGridEditing
+    object Col_KirimSec: TcxTreeListColumn
+      PropertiesClassName = 'TcxCheckBoxProperties'
+      Properties.ValueChecked = 'True'
+      Properties.ValueUnchecked = 'False'
+      Properties.OnEditValueChanged = Col_KirimSecPropertiesEditValueChanged
+      DataBinding.ValueType = 'String'
+      Options.Moving = False
+      Width = 23
+      Position.ColIndex = 0
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+    end
+    object Col_Kirim: TcxTreeListColumn
+      Tag = 1
+      Visible = False
+      Caption.AlignHorz = taCenter
+      Caption.AlignVert = vaCenter
+      Caption.Text = 'Kirim'
+      DataBinding.ValueType = 'String'
+      Options.IncSearch = False
+      Width = 242
+      Position.ColIndex = 1
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+    end
+    object Col_KirimAciklama: TcxTreeListColumn
+      Tag = 3
+      PropertiesClassName = 'TcxTextEditProperties'
+      Caption.AlignHorz = taCenter
+      Caption.AlignVert = vaCenter
+      Caption.Text = 'A'#231#305'klama'
+      DataBinding.ValueType = 'String'
+      Options.Footer = True
+      Width = 599
+      Position.ColIndex = 2
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+      SummaryFooter.Kind = skCount
+    end
+    object Col_Bos: TcxTreeListColumn
+      Visible = False
+      Caption.Text = 'Bos'
+      DataBinding.ValueType = 'String'
+      Position.ColIndex = 3
+      Position.RowIndex = 0
+      Position.BandIndex = 0
+    end
+  end
+    object qTmp: TOraQuery
+    SQL.Strings = (
+            
+              'SELECT ISN,IFN,GRN,VERI_KODU,KOD_GRUP,KART_STOK.SATINALMACI,KART' +
+              '_STOK.SAT_ID,ISLEM_TIPI,SOK_TURU,SOK_ACIKLAMA,'
+            
+              'SOK_BASLANGIC_TARIH,SOK_BITIS_TARIH,SOK_YTL,SOK_MUSTERI_KARTI,SO' +
+              'K_PESIN,INDIRIM_BASLANGIC_TARIH'#9','
+            
+              'INDIRIM_BASLANGIC_SAAT,INDIRIM_BITIS_TARIH,INDIRIM_BITIS_SAAT,IN' +
+              'DIRIM_ORANI,'
+            
+              'INDIRIM_SAATLIK_FIYAT,ONCEKI_FIYAT,FIYAT_BIRIM_1,FIYAT_BIRIM_2,F' +
+              'IYAT_BIRIM_3,FIYAT_BIRIM_4,UZUN_ACIKLAMA AS A2,'
+            
+              'SATIR_FIYAT.BIRIM_1,SATIR_FIYAT.BIRIM_2,SATIR_FIYAT.BIRIM_3,SATI' +
+              'R_FIYAT.BIRIM_4,'
+            
+              'FIYAT_TL,FIYAT_MUSTERI,FIYAT_PESIN,alis_fiyat,FIYAT_GERIDONUSUM,' +
+              'ALIS_KDV,SATIS_KDV,SOK_GERIDONUSUM_FIYAT,INDIRIM_GERIDONUSUM'
+            ' FROM SATIR_FIYAT , KART_STOK'
+            'WHERE  (STOK_ID = VERI_KODU) AND (IFN=:V_IFN)'
+            'ORDER BY GRN'
+            ''
+            ''
+            '')
+    Left = 951
+    Top = 527
+    ParamData = <
+            item
+              DataType = ftString
+              Name = 'V_IFN'
+              ParamType = ptUnknown
+            end>
+  end
+object StyleList: TcxStyleRepository
+    Left = 891
+    Top = 529
+    PixelsPerInch = 96
+    object cxStyle1: TcxStyle
+      AssignedValues = [svColor]
+      Color = 15451300
+    end
+    object cxStyle2: TcxStyle
+      AssignedValues = [svColor]
+      Color = 15451300
+    end
+    object cxStyle3: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 12937777
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clWhite
+    end
+    object cxStyle4: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 12937777
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clWhite
+    end
+    object cxStyle5: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 16247513
+      TextColor = clBlack
+    end
+    object cxStyle6: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 16445924
+      TextColor = clBlack
+    end
+    object cxStyle7: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 15850688
+      TextColor = clBlack
+    end
+    object cxStyle8: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 12937777
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clWhite
+    end
+    object cxStyle9: TcxStyle
+      AssignedValues = [svColor]
+      Color = 15451300
+    end
+    object cxStyle10: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 4707838
+      TextColor = clBlack
+    end
+    object cxStyle11: TcxStyle
+      AssignedValues = [svColor]
+      Color = 15451300
+    end
+    object cxStyle12: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 16711164
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -9
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      TextColor = clSilver
+    end
+    object cxStyle13: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 12937777
+      TextColor = clWhite
+    end
+    object cxStyle14: TcxStyle
+      AssignedValues = [svColor]
+      Color = 15451300
+    end
+    object cxStyle15: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 16247513
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      TextColor = clBlack
+    end
+    object cxStyle16: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 16247513
+      TextColor = clBlack
+    end
+    object cxStyle17: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 16247513
+      TextColor = clBlack
+    end
+    object cxStyle18: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 14811135
+      TextColor = clBlack
+    end
+    object cxStyle19: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 14811135
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clNavy
+    end
+    object cxStyle20: TcxStyle
+      AssignedValues = [svColor]
+      Color = 14872561
+    end
+    object cxStyle21: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 4707838
+      TextColor = clBlack
+    end
+    object cxStyle22: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 12937777
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clWhite
+    end
+    object cxStyle23: TcxStyle
+      AssignedValues = [svColor]
+      Color = 15451300
+    end
+    object stBandHeader: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 16764095
+      Font.Charset = TURKISH_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clBlack
+    end
+    object cxStyle25: TcxStyle
+      AssignedValues = [svColor]
+      Color = 15451300
+    end
+    object cxStyle26: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 14811135
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clNavy
+    end
+    object cxStyle27: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 12937777
+      TextColor = clWhite
+    end
+    object GroupStyle1: TcxStyle
+      AssignedValues = [svColor, svFont]
+      Color = clLime
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold]
+    end
+    object GroupStyle2: TcxStyle
+      AssignedValues = [svColor, svFont]
+      Color = clBackground
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold]
+    end
+    object GroupStyle3: TcxStyle
+      AssignedValues = [svColor, svFont]
+      Color = clMoneyGreen
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold]
+    end
+    object GroupStyle4: TcxStyle
+      AssignedValues = [svColor, svFont]
+      Color = 59110
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold]
+    end
+    object GroupStyle5: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 16051436
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = [fsBold, fsItalic]
+      TextColor = clMaroon
+    end
+    object LineStyle1: TcxStyle
+      AssignedValues = [svFont, svTextColor]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clBlack
+    end
+    object LineStyle2: TcxStyle
+      AssignedValues = [svFont, svTextColor]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      TextColor = 12255232
+    end
+    object LineStyle3: TcxStyle
+      AssignedValues = [svFont, svTextColor]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = 45824
+    end
+    object LineStyle4: TcxStyle
+      AssignedValues = [svFont, svTextColor]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = 38807
+    end
+    object LineStyle5: TcxStyle
+      AssignedValues = [svFont, svTextColor]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clPurple
+    end
+    object TreeListStyleDevEx: TcxTreeListStyleSheet
+      Caption = 'DevExpress'
+      Styles.Background = cxStyle1
+      Styles.Content = cxStyle5
+      Styles.Inactive = cxStyle9
+      Styles.Selection = cxStyle13
+      Styles.BandBackground = cxStyle2
+      Styles.BandHeader = cxStyle3
+      Styles.ColumnHeader = cxStyle4
+      Styles.ContentEven = cxStyle6
+      Styles.ContentOdd = cxStyle7
+      Styles.Footer = cxStyle8
+      Styles.IncSearch = cxStyle10
+      Styles.Indicator = cxStyle11
+      Styles.Preview = cxStyle12
+      BuiltIn = True
+    end
+    object GridStyleDevEx: TcxGridTableViewStyleSheet
+      Caption = 'DevExpress'
+      Styles.Background = cxStyle14
+      Styles.Content = cxStyle15
+      Styles.ContentEven = cxStyle16
+      Styles.ContentOdd = cxStyle17
+      Styles.FilterBox = cxStyle18
+      Styles.Inactive = cxStyle23
+      Styles.IncSearch = stBandHeader
+      Styles.Selection = cxStyle27
+      Styles.Footer = cxStyle19
+      Styles.Group = cxStyle20
+      Styles.GroupByBox = cxStyle21
+      Styles.Header = cxStyle22
+      Styles.Indicator = cxStyle25
+      Styles.Preview = cxStyle26
+      BuiltIn = True
+    end
+  end
+  object KirimSec: TSQLMemTable
+    CurrentVersion = '4.40 '
+    StoreDefs = True
+    DatabaseName = 'MEMORY'
+    ReadOnly = False
+    IndexDefs = <
+      item
+        Name = 'Index'
+        Fields = 'Bos'
+        Options = [ixPrimary, ixUnique]
+      end>
+    IndexName = 'Index'
+    FieldDefs = <
+      item
+        Name = 'Bos'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Ekle'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Sil'
+        DataType = ftString
+        Size = 20
+      end>
+    TableName = 'Table1506681659'
+    Exclusive = False
+    MemoryTableAllocBy = 1000
+    Left = 892
+    Top = 584
+  end
+  object KirimUst: TSQLMemTable
+    CurrentVersion = '4.40 '
+    StoreDefs = True
+    DatabaseName = 'MEMORY'
+    ReadOnly = False
+    IndexDefs = <
+      item
+        Name = 'Index'
+        Fields = 'Kirim'
+        Options = [ixPrimary, ixUnique]
+      end>
+    IndexName = 'Index'
+    FieldDefs = <
+      item
+        Name = 'Kirim'
+        DataType = ftString
+        Size = 20
+      end>
+    TableName = 'Table883471851'
+    Exclusive = False
+    MemoryTableAllocBy = 1000
+    Left = 946
+    Top = 584
+  end
+    object qTmpUst: TOraQuery
+    SQL.Strings = (
+            
+              'SELECT ISN,IFN,GRN,VERI_KODU,KOD_GRUP,KART_STOK.SATINALMACI,KART' +
+              '_STOK.SAT_ID,ISLEM_TIPI,SOK_TURU,SOK_ACIKLAMA,'
+            
+              'SOK_BASLANGIC_TARIH,SOK_BITIS_TARIH,SOK_YTL,SOK_MUSTERI_KARTI,SO' +
+              'K_PESIN,INDIRIM_BASLANGIC_TARIH'#9','
+            
+              'INDIRIM_BASLANGIC_SAAT,INDIRIM_BITIS_TARIH,INDIRIM_BITIS_SAAT,IN' +
+              'DIRIM_ORANI,'
+            
+              'INDIRIM_SAATLIK_FIYAT,ONCEKI_FIYAT,FIYAT_BIRIM_1,FIYAT_BIRIM_2,F' +
+              'IYAT_BIRIM_3,FIYAT_BIRIM_4,UZUN_ACIKLAMA AS A2,'
+            
+              'SATIR_FIYAT.BIRIM_1,SATIR_FIYAT.BIRIM_2,SATIR_FIYAT.BIRIM_3,SATI' +
+              'R_FIYAT.BIRIM_4,'
+            
+              'FIYAT_TL,FIYAT_MUSTERI,FIYAT_PESIN,alis_fiyat,FIYAT_GERIDONUSUM,' +
+              'ALIS_KDV,SATIS_KDV,SOK_GERIDONUSUM_FIYAT,INDIRIM_GERIDONUSUM'
+            ' FROM SATIR_FIYAT , KART_STOK'
+            'WHERE  (STOK_ID = VERI_KODU) AND (IFN=:V_IFN)'
+            'ORDER BY GRN'
+            ''
+            ''
+            '')
+    Left = 987
+    Top = 527
+    ParamData = <
+            item
+              DataType = ftString
+              Name = 'V_IFN'
+              ParamType = ptUnknown
+            end>
+  end
+object ActionList1: TActionList
+    Images = dmGlobal.FisNoImage
+    Left = 518
+    Top = 63
+    object actTamam: TAction
+      Caption = '&Tamam'
+      ImageIndex = 29
+      ShortCut = 32852
+      OnExecute = actTamamExecute
+    end
+    object actVazgec: TAction
+      Caption = '&Vazge'#231
+      ImageIndex = 5
+      ShortCut = 32854
+      OnExecute = actVazgecExecute
+    end
+    object actBul: TAction
+      Caption = '&Bul'
+      Hint = 'Bul'
+      ImageIndex = 6
+      ShortCut = 32834
+      OnExecute = actBulExecute
+    end
+    object actTumunuSec: TAction
+      Caption = 'T'#252'm'#252'n'#252' Se'#231
+      ImageIndex = 27
+      ShortCut = 16468
+      OnExecute = actTumunuSecExecute
+    end
+    object actTumunuKaldir: TAction
+      Caption = 'T'#252'm'#252'n'#252' Kald'#305'r'
+      ImageIndex = 28
+      ShortCut = 16459
+      OnExecute = actTumunuKaldirExecute
+    end
+  end
+  object pMenu: TPopupMenu
+    Left = 598
+    Top = 74
+    object ppmTamam: TMenuItem
+      Action = actTamam
+    end
+    object ppmIptal: TMenuItem
+      Action = actVazgec
+    end
+    object ppmBul: TMenuItem
+      Action = actBul
+    end
+    object mnSe1: TMenuItem
+      Action = actTumunuSec
+    end
+    object mnKaldr1: TMenuItem
+      Action = actTumunuKaldir
+    end
+  end
+  object qMagaza: TSQLMemQuery
+    CurrentVersion = '4.40 '
+    DatabaseName = 'MEMORY'
+    ReadOnly = False
+    Left = 998
+    Top = 588
+  end
+end
